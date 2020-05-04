@@ -1,8 +1,10 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi');
+const handlebars = require('handlebars');
 const inert = require('@hapi/inert');
 const path = require('path');
+const vision = require('@hapi/vision')
 
 const server = Hapi.server({
     port: process.env.PORT || 3000,
@@ -16,11 +18,23 @@ const server = Hapi.server({
 async function init() {
     try {
         await server.register(inert);
+        await server.register(vision);
+        server.views({
+            engines: {
+                hbs: handlebars
+            },
+            relativeTo: __dirname,
+            path: 'views',
+            layout: true,
+            layoutPath: 'views'
+        })
         server.route({
             method: 'GET',
             path: '/home',
             handler: (req, h) => {
-                return h.file('index.html');
+                return h.view('index', {
+                    title: 'home'
+                });
             }
         })
         server.route({
@@ -29,7 +43,6 @@ async function init() {
             handler: {
                 directory: {
                     path: '.',
-                    index: ['index.html']
                 }
             }
         })
