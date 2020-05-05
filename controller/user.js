@@ -1,4 +1,5 @@
 const { users } = require('../models/index')
+const Boom = require('@hapi/boom');
 
 async function createUser(req, h) {
     let result;
@@ -6,9 +7,15 @@ async function createUser(req, h) {
         result = await users.create(req.payload);
     } catch (e) {
         console.error(e);
-        return h.response('Problemas creando el usuario').code(500);
+        return h.view('register', {
+            title: 'Registro',
+            error: 'Error creando el usuario'
+        });
     }
-    return h.response(`Usuario Creado ID', ${result}`);
+    return h.view('register', {
+        title: 'register',
+        success: 'Usuario creado exitosamente'
+    });
 }
 
 async function validateUser(req, h) {
@@ -16,11 +23,16 @@ async function validateUser(req, h) {
     try {
         result = await users.validateUser(req.payload);
         if (!result) {
-            return h.response('Email y/o contraseña incorrecta').code(401);
+            return h.view('login', {
+                title: 'Login',
+                error: 'Email y/o contraseña incorrecta'
+            });
         }
     } catch (error) {
-        console.error(error);
-        return h.response('Problemas al logear el usuario').code(500);
+        return h.view('login', {
+            title: 'Login',
+            error: 'Problemas validando el usuario'
+        });
     }
     return h.redirect('/').state('user', {
         name: result.name,
@@ -32,8 +44,12 @@ function logout(req, h) {
     return h.redirect('/login').unstate('user');
 }
 
+function failValidation(req, h, error) {
+    return Boom.badRequest('Fallo la validacion', req.payload);
+}
 module.exports = {
     createUser,
     validateUser,
-    logout
+    logout,
+    failValidation
 }
