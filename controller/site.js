@@ -1,7 +1,18 @@
-function index(req, h) {
+'use strict'
+
+const { questions } = require('../models/index');
+
+async function index(req, h) {
+    let data;
+    try {
+        data = await questions.getLast(10);
+    } catch (error) {
+        console.log(error);
+    }
     return h.view('index', {
         title: 'home',
-        user: req.state.user
+        user: req.state.user,
+        questions: data
     })
 }
 
@@ -37,10 +48,21 @@ function fileNotFound(req, h) {
 
     return h.continue
 }
+
+function ask(req, h) {
+    if (!req.state.user) {
+        return h.redirect('/login')
+    }
+    return h.view('ask', {
+        title: 'Crear pregunta',
+        user: req.state.user
+    })
+}
 module.exports = {
     index,
     register,
     login,
     notFound,
-    fileNotFound
+    fileNotFound,
+    ask
 }
