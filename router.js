@@ -45,6 +45,11 @@ const routes = [{
         handler: site.ask
     },
     {
+        method: 'GET',
+        path: '/question/{id}',
+        handler: site.viewQuestion
+    },
+    {
         path: '/create-question',
         method: 'POST',
         options: {
