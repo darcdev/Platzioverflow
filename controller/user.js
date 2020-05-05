@@ -5,7 +5,6 @@ function register(req, h) {
         title: 'Register'
     })
 }
-
 async function createUser(req, h) {
     let result;
     try {
@@ -17,8 +16,24 @@ async function createUser(req, h) {
     return h.response(`Usuario Creado ID', ${result}`);
 }
 
+function login(req, h) {
+    return h.view('login', {
+        title: 'Login'
+    })
+}
+async function validateUser(req, h) {
+    try {
+        const userLogin = await users.validateUser(req.payload);
+        return userLogin;
+    } catch (error) {
+        console.error(error);
+        return h.response('Problemas al logear el usuario').code(500);
+    }
+}
 
 module.exports = {
-    register: register,
-    createUser: createUser
+    register,
+    createUser,
+    login,
+    validateUser
 }
