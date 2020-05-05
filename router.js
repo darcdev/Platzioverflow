@@ -58,14 +58,14 @@ const routes = [{
         handler: {
             directory: {
                 path: '.',
-                index : ['index.html']
+                index: ['index.html']
             }
         }
     },
     {
-        method : ['GET' , 'POST'],
-        path : '/{any*}',
-        handler : site.notFound
+        method: ['GET', 'POST'],
+        path: '/{any*}',
+        handler: site.notFound
     }
 ]
 

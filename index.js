@@ -7,6 +7,7 @@ const path = require('path');
 const vision = require('@hapi/vision')
 
 const routes = require('./router');
+const site = require('./controller/site');
 
 const server = Hapi.server({
     port: process.env.PORT || 3000,
@@ -35,6 +36,7 @@ async function init() {
             layout: true,
             layoutPath: 'views'
         })
+        server.ext('onPreResponse', site.fileNotFound)
         server.route(routes);
         await server.start();
     } catch (error) {
