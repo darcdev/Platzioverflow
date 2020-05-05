@@ -11,7 +11,7 @@ const routes = [{
     {
         method: 'GET',
         path: '/register',
-        handler: user.register
+        handler: site.register
     },
     {
         path: '/create-user',
@@ -30,7 +30,12 @@ const routes = [{
     {
         method: 'GET',
         path: '/login',
-        handler: user.login
+        handler: site.login
+    },
+    {
+        method: 'GET',
+        path: '/logout',
+        handler: user.logout
     },
     {
         path: '/validate-user',

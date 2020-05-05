@@ -24,7 +24,6 @@ class Users {
         if (userFound) {
             const userId = Object.keys(userFound)[0]
             const passwordRight = await bcrypt.compare(data.password, userFound[userId].password)
-
             return (passwordRight) ? userFound[userId] : false
         }
 
