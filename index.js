@@ -6,6 +6,11 @@ const inert = require('@hapi/inert');
 const path = require('path');
 const vision = require('@hapi/vision')
 
+handlebars.registerHelper('answerNumber', (answers) => {
+    const keys = Object.keys(answers);
+    return keys.length;
+})
+
 const routes = require('./router');
 const site = require('./controller/site');
 

@@ -35,6 +35,20 @@ const routes = [{
         handler: site.login
     },
     {
+        path: '/validate-user',
+        method: 'POST',
+        options: {
+            validate: {
+                payload: Joi.object({
+                    email: Joi.string().email().required(),
+                    password: Joi.string().required().min(6)
+                }),
+                failAction: user.failValidation
+            }
+        },
+        handler: user.validateUser
+    },
+    {
         method: 'GET',
         path: '/logout',
         handler: user.logout
@@ -43,11 +57,6 @@ const routes = [{
         method: 'GET',
         path: '/ask',
         handler: site.ask
-    },
-    {
-        method: 'GET',
-        path: '/question/{id}',
-        handler: site.viewQuestion
     },
     {
         path: '/create-question',
@@ -64,18 +73,23 @@ const routes = [{
         handler: question.createQuestion
     },
     {
-        path: '/validate-user',
+        method: 'GET',
+        path: '/question/{id}',
+        handler: site.viewQuestion
+    },
+    {
+        path: '/answer-question',
         method: 'POST',
         options: {
             validate: {
                 payload: Joi.object({
-                    email: Joi.string().email().required(),
-                    password: Joi.string().required().min(6)
+                    answer: Joi.string().required(),
+                    id: Joi.string().required()
                 }),
                 failAction: user.failValidation
             }
         },
-        handler: user.validateUser
+        handler: question.answerQuestion
     },
     {
         method: 'GET',
