@@ -12,7 +12,7 @@ const routes = require('./router');
 const site = require('./controller/site');
 
 const server = Hapi.server({
-    port: process.env.PORT || 8080,
+    port: process.env.PORT || 3000,
     host: 'localhost',
     routes: {
         files: {
