@@ -16,6 +16,8 @@
     },
     "dependencies": {
         "@hapi/boom": "^9.1.0",
+        "@hapi/good": "^9.0.0",
+        "@hapi/good-console": "^9.0.0",
         "@hapi/hapi": "^19.1.1",
         "@hapi/inert": "^6.0.1",
         "@hapi/joi": "^17.1.1",
@@ -23,6 +25,7 @@
         "bcrypt": "^4.0.1",
         "firebase-admin": "^8.11.0",
         "handlebars": "^4.7.6",
-        "joi": "^14.3.1"
+        "joi": "^14.3.1",
+        "uuid": "^8.0.0"
     }
 }

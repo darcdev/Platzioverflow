@@ -6,6 +6,7 @@ const inert = require('@hapi/inert');
 const method = require('./lib/methods');
 const path = require('path');
 const vision = require('@hapi/vision')
+const good = require('@hapi/good');
 
 handlebars.registerHelper('answerNumber', (answers) => {
     const keys = Object.keys(answers);
@@ -16,7 +17,7 @@ const routes = require('./router');
 const site = require('./controller/site');
 
 const server = Hapi.server({
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 8080,
     host: 'localhost',
     routes: {
         files: {
