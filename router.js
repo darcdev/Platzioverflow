@@ -78,6 +78,11 @@ const routes = [{
         handler: site.viewQuestion
     },
     {
+        method: 'GET',
+        path: '/answer/{questionId}/{answerId}',
+        handler: question.setAnswerRight
+    },
+    {
         path: '/answer-question',
         method: 'POST',
         options: {
