@@ -24,6 +24,7 @@
         "@hapi/joi": "^17.1.1",
         "@hapi/vision": "^6.0.0",
         "bcrypt": "^4.0.1",
+        "crumb": "^7.2.3",
         "firebase-admin": "^8.11.0",
         "handlebars": "^4.7.6",
         "hapi-auth-basic": "^5.0.0",

@@ -7,6 +7,7 @@ const method = require('./lib/methods');
 const path = require('path');
 const vision = require('@hapi/vision')
 const good = require('@hapi/good');
+const crumb = require('crumb');
 
 const routes = require('./router');
 const site = require('./controller/site');
@@ -33,6 +34,14 @@ async function init() {
                         },
                         'stdout'
                     ]
+                }
+            }
+        })
+        await server.register({
+            plugin: crumb,
+            options: {
+                cookieOptions: {
+                    isSecure: process.env.NODE_ENV === 'prod'
                 }
             }
         })
