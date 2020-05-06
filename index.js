@@ -1,7 +1,7 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi');
-const handlebars = require('handlebars');
+const handlebars = require('./lib/helpers');
 const inert = require('@hapi/inert');
 const path = require('path');
 const vision = require('@hapi/vision')
