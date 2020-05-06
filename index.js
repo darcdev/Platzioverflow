@@ -8,6 +8,8 @@ const path = require('path');
 const vision = require('@hapi/vision')
 const good = require('@hapi/good');
 const crumb = require('crumb');
+const blankie = require('blankie');
+const scooter = require('@hapi/scooter');
 
 const routes = require('./router');
 const site = require('./controller/site');
@@ -45,6 +47,16 @@ async function init() {
                 }
             }
         })
+        await server.register([scooter, {
+            plugin: blankie,
+            options: {
+                'defaultSrc': `'self' 'unsafe-inline'`,
+                'styleSrc': `'self' 'unsafe-inline' https://maxcdn.bootstrapcdn.com`,
+                'fontSrc': `'self' 'unsafe-inline' data:`,
+                'scriptSrc': `'self' 'unsafe-inline' https://cdnjs.cloudflare.com   https://maxcdn.bootstrapcdn.com https://code.jquery.com/ `,
+                'generateNonces': false
+            }
+        }]);
         await server.register({
             plugin: require('./lib/api'),
             options: {
