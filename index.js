@@ -8,11 +8,6 @@ const path = require('path');
 const vision = require('@hapi/vision')
 const good = require('@hapi/good');
 
-handlebars.registerHelper('answerNumber', (answers) => {
-    const keys = Object.keys(answers);
-    return keys.length;
-})
-
 const routes = require('./router');
 const site = require('./controller/site');
 
@@ -39,6 +34,12 @@ async function init() {
                         'stdout'
                     ]
                 }
+            }
+        })
+        await server.register({
+            plugin: require('./lib/api'),
+            options: {
+                prefix: 'api'
             }
         })
         server.method('setAnswerRight', method.setAnswerRight)

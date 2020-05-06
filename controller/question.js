@@ -9,13 +9,11 @@ const { v1: uuid } = require('uuid');
 const write = promisify(writeFile)
 
 async function createQuestion(req, h) {
-
     if (!req.state.user) {
         return h.redirect('/login')
     }
     let result, filename;
     try {
-        console.log(Buffer.isBuffer(req.payload.image))
         if (Buffer.isBuffer(req.payload.image)) {
             console.log('aqui estoy');
             filename = `${uuid()}.png`
