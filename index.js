@@ -29,6 +29,18 @@ async function init() {
     try {
         await server.register(inert);
         await server.register(vision);
+        await server.register({
+            plugin: good,
+            options: {
+                reporters: {
+                    console: [{
+                            module: require('@hapi/good-console')
+                        },
+                        'stdout'
+                    ]
+                }
+            }
+        })
         server.method('setAnswerRight', method.setAnswerRight)
         server.method('getLast', method.getLast, {
             cache: {
@@ -57,15 +69,15 @@ async function init() {
         console.error(error);
         process.exit(1);
     }
-    console.log(`Servidor lanzado en: ${server.info.uri}`);
+    server.log('info', `Servidor lanzado en: ${server.info.uri}`);
 }
 
 process.on('unhandledRejection', (error) => {
-    console.log('UnhandledRejection', error.message, error);
+    server.log('UnhandledRejection', error);
 });
 
 process.on('uncaughtException', (error) => {
-    console.log('uncaugthException', error.message, error);
+    server.log('uncaugthException', error);
 })
 
 init();
