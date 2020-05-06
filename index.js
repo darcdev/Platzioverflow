@@ -29,6 +29,12 @@ async function init() {
         await server.register(inert);
         await server.register(vision);
         server.method('setAnswerRight', method.setAnswerRight)
+        server.method('getLast', method.getLast, {
+            cache: {
+                expiresIn: 1000 * 60,
+                generateTimeout: 2000
+            }
+        })
         server.state('user', {
             ttl: 1000 * 60 * 60 * 24 * 7,
             isSecure: process.env.NODE_ENV === 'prod',
